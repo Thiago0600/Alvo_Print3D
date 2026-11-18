@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0b0c0e;
+  --color-graphite: #121418;
+  --color-panel: #181b20;
+  --color-line: #262a31;
+  --color-mute: #8b919c;
+  --color-soft: #c9ced6;
+  --color-paper: #f5f5f3;
+  --color-orange: #ff6b0b;
+  --color-orange-hot: #ff8a2a;
+  --color-orange-deep: #d9530a;
+
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-blink: blink 4.5s infinite;
+  --animate-layer: layer 3.2s cubic-bezier(.6,0,.3,1) infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) }
+  50% { transform: translateY(-8px) }
+}
+@keyframes blink {
+  0%, 92%, 100% { transform: scaleY(1) }
+  95% { transform: scaleY(0.1) }
+}
+@keyframes layer {
+  0% { transform: scaleX(0); opacity: 1 }
+  70% { transform: scaleX(1); opacity: 1 }
+  100% { transform: scaleX(1); opacity: 1 }
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--color-ink);
+  color: var(--color-soft);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--color-orange); color: #000; }
+
+/* Textura de camadas (assinatura visual: as linhas de uma impressão FDM) */
+.layers {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 1px,
+    transparent 1px,
+    transparent 6px
+  );
+}
+/* Grelha da mesa de impressão */
+.bedgrid {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  border-radius: .75rem; padding: .85rem 1.35rem; font-weight: 700; font-size: .95rem;
+  transition: transform .15s ease, background-color .2s ease, box-shadow .2s ease, border-color .2s;
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px) scale(.99); }
+.btn-primary { background: var(--color-orange); color: #0b0c0e; box-shadow: 0 10px 30px -10px rgba(255,107,11,.6); }
+.btn-primary:hover { background: var(--color-orange-hot); }
+.btn-ghost { border: 1px solid var(--color-line); color: #fff; background: rgba(255,255,255,.02); }
+.btn-ghost:hover { border-color: var(--color-orange); }
+.btn-wa { background: #25d366; color: #062b13; }
+.btn-wa:hover { background: #3be07a; }
+.btn:disabled { opacity: .5; pointer-events: none; }
+
+.card { background: var(--color-panel); border: 1px solid var(--color-line); border-radius: 1.25rem; }
+.tag {
+  font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--color-orange);
+}
+.field {
+  width: 100%; background: var(--color-graphite); border: 1px solid var(--color-line); color: #fff;
+  border-radius: .75rem; padding: .75rem .9rem; font-size: 1rem; outline: none; transition: border-color .2s;
+}
+.field:focus { border-color: var(--color-orange); box-shadow: 0 0 0 3px rgba(255,107,11,.15); }
+.field::placeholder { color: #5d636d; }
+.label { display: block; font-size: .85rem; font-weight: 600; color: #e7e9ed; margin-bottom: .4rem; }
+
+.reveal { animation: reveal .7s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes reveal { from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
